@@ -40,6 +40,9 @@
                 <input id="input-address" type="text" />
               </div>
             </div>
+            <div class="row">
+              <button class="btn btn-next" type="submit">下一步</button>
+            </div>
           </form>
         </div>
       </div>
@@ -78,10 +81,10 @@ export default {
   width: 350px;
 }
 
-.row:last-child .input:first-child {
+.row:nth-child(2) .input:first-child {
   width: 160px;
 }
-.row:last-child .input:last-child {
+.row:nth-child(2) .input:last-child {
   width: 350px;
 }
-</style>
+</style> 

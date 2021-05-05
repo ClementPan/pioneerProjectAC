@@ -13,6 +13,7 @@
   --undone: #AFB1BD;
   --done: #2a2a2a;
   --inputLabel:#808080;
+  --btn:#ee749e;
   /* font weight */
   --fontWeightTitle: 700;
 }
@@ -31,6 +32,7 @@ body {
   font-weight: var(--fontWeightTitle);
   font-size: 32px;
   color: var(--fontDark);
+  margin-bottom: 48px;
 }
 
 .main-content {
@@ -54,14 +56,12 @@ body {
   flex-direction: row;
   justify-content: space-between;
   height: 64px;
-  /* border: 1px solid #000; */
   margin-bottom: 24px;
 }
 
 .input {
   height: 64px;
   width: 255px;
-  /* border: 1px solid #000; */
 }
 
 .input input {
@@ -80,4 +80,28 @@ body {
   font-weight: var(--fontWeightTitle);
   color: var(--inputLabel);
   margin-bottom: 8px;
+}
+
+/* button row */
+.row:last-child {
+  height: 72px;
+  position: relative;
+  margin-top: 48px;
+  border-top: 1px solid var(--borderLight);
+}
+
+.btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 174px;
+  height: 46px;
+  border: none;
+  background-color: var(--btn);
+  color: #fff;
+  border-radius: 8px;
+}
+
+.btn:hover {
+  cursor: pointer;
 }

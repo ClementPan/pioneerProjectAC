@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 #progressBar {
-  margin: 48px 0 64px;
+  margin-bottom: 64px;
   height: 24px;
   display: flex;
 }

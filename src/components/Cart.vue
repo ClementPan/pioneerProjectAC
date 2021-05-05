@@ -183,7 +183,6 @@ export default {
 .totalFee {
   height: 36px;
   border-top: 1px solid var(--borderLight);
-  /* border: 1px solid #000; */
   margin-bottom: 32px;
   display: flex;
   flex-direction: row;
