@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Noto Sans TC";
+  box-sizing: border-box;
+}
+
+:root {
+  /* color */
+  --fontDark: #2a2a2a;
+  --borderLight: #f0f0f5;
+  --undone: #AFB1BD;
+  --done: #2a2a2a;
+  --inputLabel:#808080;
+  /* font weight */
+  --fontWeightTitle: 700;
+}
+
+html, body {
+  height: 100vh;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  background-color: #a7a7a7;
+}
+
+.page-title {
+  font-weight: var(--fontWeightTitle);
+  font-size: 32px;
+  color: var(--fontDark);
+}
+
+.main-content {
+  display: flex;
+}
+
+.panel {
+  width: 540px;
+}
+
+
+.form .title {
+  font-weight: var(--fontWeightTitle);
+  font-size: 24px;
+  color: var(--fontDark);
+  margin-bottom: 24px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 64px;
+  /* border: 1px solid #000; */
+  margin-bottom: 24px;
+}
+
+.input {
+  height: 64px;
+  width: 255px;
+  /* border: 1px solid #000; */
+}
+
+.input input {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #4A4A4A;
+  height: 40px;
+  padding: 12px 16px;
+}
+
+.row .input label {
+  height: 16px;
+  font-size: 12px;
+  display: block;
+  width: 100%;
+  font-weight: var(--fontWeightTitle);
+  color: var(--inputLabel);
+  margin-bottom: 8px;
+}
