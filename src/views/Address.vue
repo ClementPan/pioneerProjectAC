@@ -11,37 +11,92 @@
             <div class="row">
               <div class="input">
                 <label for="input-appellation">稱謂</label>
-                <input id="input-appellation" type="text" />
+                <select
+                  required
+                  id="input-appellation"
+                  name="appellation"
+                  v-model="form.appellation"
+                >
+                  <option value="mister" selected>先生</option>
+                  <option value="madam">女士</option>
+                </select>
+                <i class="dropdownBtn"></i>
               </div>
               <div class="input">
                 <label for="input-name">姓名</label>
-                <input id="input-name" type="text" />
+                <input
+                  v-model="form.name"
+                  required
+                  id="input-name"
+                  placeholder="請輸入姓名"
+                  type="text"
+                />
               </div>
             </div>
             <!-- tel & email -->
             <div class="row">
               <div class="input">
                 <label for="input-tel">電話</label>
-                <input id="input-tel" type="text" />
+                <input
+                  v-model="form.tel"
+                  required
+                  id="input-tel"
+                  placeholder="請輸入行動電話"
+                  type="text"
+                />
               </div>
               <div class="input">
                 <label for="input-email">Email</label>
-                <input id="input-email" type="email" />
+                <input
+                  v-model="form.email"
+                  required
+                  id="input-email"
+                  placeholder="請輸入電子郵件"
+                  type="email"
+                />
               </div>
             </div>
             <!-- county & address -->
             <div class="row">
               <div class="input">
                 <label for="input-county">縣市</label>
-                <input id="input-county" type="text" />
+                <select
+                  v-model="form.county"
+                  id="input-county"
+                  name="county"
+                  required
+                  :class="{ noValueSelect: this.form.county === '請選擇縣市' }"
+                >
+                  <option class="placeholder-option" disabled>
+                    請選擇縣市
+                  </option>
+                  <option value="taipei">台北</option>
+                  <option value="taichung">台中</option>
+                  <option value="taoyuan">桃園</option>
+                  <option value="tainan">台南</option>
+                  <option value="aohsiung">高雄</option>
+                </select>
+                <i class="dropdownBtn"></i>
               </div>
               <div class="input">
                 <label for="input-address">地址</label>
-                <input id="input-address" type="text" />
+                <input
+                  v-model="form.address"
+                  required
+                  id="input-address"
+                  placeholder="請輸入地址"
+                  type="text"
+                />
               </div>
             </div>
             <div class="row">
-              <button class="btn btn-next" type="submit">下一步</button>
+              <button
+                class="btn btn-next"
+                type="submit"
+                @click.stop.prevent="saveForm"
+              >
+                下一步
+              </button>
             </div>
           </form>
         </div>
@@ -59,21 +114,30 @@ export default {
   name: "Address",
   components: { Cart, ProgressBar },
   data() {
-    return { currentStep: 1 };
+    return {
+      currentStep: 1,
+      form: {
+        appellation: "mister",
+        name: "",
+        tel: "",
+        email: "",
+        county: "請選擇縣市",
+        address: "",
+      },
+    };
   },
   methods: {
-    nextStep() {
+    saveForm() {
       // 把資料存進 localStorage
+      localStorage.setItem("form", JSON.stringify(this.form));
+      // push to Shipping.vue
+      this.$router.push("/shipping");
     },
   },
 };
 </script>
 
 <style scoped>
-.form {
-  /* border: 1px solid #000; */
-}
-
 .row:first-child .input:first-child {
   width: 160px;
 }

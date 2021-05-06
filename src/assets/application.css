@@ -62,6 +62,7 @@ body {
 .input {
   height: 64px;
   width: 255px;
+  position: relative;
 }
 
 .input input {
@@ -70,6 +71,52 @@ body {
   border: 1px solid #4A4A4A;
   height: 40px;
   padding: 12px 16px;
+  border: 1px solid #000;
+}
+
+.input select {
+  width: 100%;  
+  border-radius: 4px;
+  border: 1px solid #4A4A4A;
+  height: 40px;
+  padding: 12px 16px;
+  -moz-appearance:none; 
+  /* Firefox */
+  -webkit-appearance:none; 
+  /* Safari and Chrome */
+  appearance:none;
+}
+
+.input input,
+.input select {
+  border: 1px solid #333;
+}
+
+.input select:hover {
+  cursor: pointer;
+}
+
+.input .noValueSelect {
+  color: var(--inputLabel);
+}
+
+.input option {
+  color: var(--fontDark)
+}
+
+
+.input .dropdownBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 18px;
+  transform: translate(0, 50%);
+  width: 12px;
+  height: 8px;
+  background-image: url("../assets/dropdownBtn.svg");
+  background-repeat: no-repeat;
+  background-size: 12px 8px;
+  pointer-events:none;
+  /* make it not clickable */
 }
 
 .row .input label {
@@ -80,6 +127,11 @@ body {
   font-weight: var(--fontWeightTitle);
   color: var(--inputLabel);
   margin-bottom: 8px;
+}
+
+.input select:focus,
+.input input:focus {
+  outline: none;
 }
 
 /* button row */
