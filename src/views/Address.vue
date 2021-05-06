@@ -6,15 +6,15 @@
         <ProgressBar :currentStep="currentStep"></ProgressBar>
         <div class="form">
           <h1 class="title">寄送地址</h1>
-          <!-- mr/mrs & name -->
+          <!-- mr/mrs & username -->
           <div class="row">
             <div class="input">
-              <label for="input-appellation">稱謂</label>
+              <label for="input-salutation">稱謂</label>
               <select
                 required
-                id="input-appellation"
-                name="appellation"
-                v-model="form.appellation"
+                id="input-salutation"
+                name="salutation"
+                v-model="form.salutation"
               >
                 <option value="mister" selected>先生</option>
                 <option value="madam">女士</option>
@@ -22,24 +22,24 @@
               <i class="dropdownBtn"></i>
             </div>
             <div class="input">
-              <label for="input-name">姓名</label>
+              <label for="input-username">姓名</label>
               <input
-                v-model="form.name"
+                v-model="form.username"
                 required
-                id="input-name"
+                id="input-username"
                 placeholder="請輸入姓名"
                 type="text"
               />
             </div>
           </div>
-          <!-- tel & email -->
+          <!-- phone & email -->
           <div class="row">
             <div class="input">
               <label for="input-tel">電話</label>
               <input
-                v-model="form.tel"
+                v-model="form.phone"
                 required
-                id="input-tel"
+                id="input-phone"
                 placeholder="請輸入行動電話"
                 type="text"
               />
@@ -55,16 +55,16 @@
               />
             </div>
           </div>
-          <!-- county & address -->
+          <!-- city & addr -->
           <div class="row">
             <div class="input">
-              <label for="input-county">縣市</label>
+              <label for="input-city">縣市</label>
               <select
-                v-model="form.county"
-                id="input-county"
-                name="county"
+                v-model="form.city"
+                id="input-city"
+                name="city"
                 required
-                :class="{ noValueSelect: this.form.county === '請選擇縣市' }"
+                :class="{ noValueSelect: this.form.city === '請選擇縣市' }"
               >
                 <option class="placeholder-option" disabled>請選擇縣市</option>
                 <option value="taipei">台北</option>
@@ -76,11 +76,11 @@
               <i class="dropdownBtn"></i>
             </div>
             <div class="input">
-              <label for="input-address">地址</label>
+              <label for="input-addr">地址</label>
               <input
-                v-model="form.address"
+                v-model="form.addr"
                 required
-                id="input-address"
+                id="input-addr"
                 placeholder="請輸入地址"
                 type="text"
               />
@@ -97,7 +97,7 @@
           </button>
         </div>
       </div>
-      <Cart />
+      <Cart :form="form" />
     </div>
   </div>
 </template>
@@ -113,12 +113,36 @@ export default {
     return {
       currentStep: 1,
       form: {
-        appellation: "mister",
-        name: "",
-        tel: "",
+        salutation: "mister",
+        username: "",
+        phone: "",
         email: "",
-        county: "請選擇縣市",
-        address: "",
+        city: "請選擇縣市",
+        addr: "",
+        products: [
+          {
+            id: 1,
+            photo:
+              "https://clementpan.github.io/toUploadImage/cart-item-photo1.svg",
+            name: "破壞補丁修身牛仔褲",
+            count: 1,
+            price: 3999,
+          },
+          {
+            id: 2,
+            photo:
+              "https://clementpan.github.io/toUploadImage/cart-item-photo2.svg",
+            name: "刷色直筒牛仔褲",
+            count: 1,
+            price: 1299,
+          },
+        ],
+        shippingFee: 0,
+        ccname: "",
+        cardNumber: "",
+        expdate: "",
+        cvv: "",
+        totalPrice: 5298,
       },
     };
   },
@@ -133,11 +157,11 @@ export default {
     saveForm() {
       // form check
       if (
-        this.form.name === "" ||
-        this.form.tel === "" ||
+        this.form.username === "" ||
+        this.form.phone === "" ||
         this.form.email === "" ||
-        this.form.county === "請選擇縣市" ||
-        this.form.address === ""
+        this.form.city === "請選擇縣市" ||
+        this.form.addr === ""
       ) {
         return alert("寄送地址尚未填寫完整！");
       }

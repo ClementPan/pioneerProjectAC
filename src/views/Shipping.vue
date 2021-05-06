@@ -9,14 +9,17 @@
           <div class="input radio">
             <div
               class="row"
-              :class="{ selected: form.shippingMethod === 'shipping-standart' }"
+              :class="{
+                selected: form.shippingFee === 0,
+              }"
             >
-              <label for="shipping-standart"></label>
+              <label for="shipping-standard"></label>
               <input
-                id="shipping-standart"
                 type="radio"
-                value="shipping-standart"
-                v-model="form.shippingMethod"
+                id="shipping-standard"
+                value="shipping-standard"
+                name="shippingMethod"
+                v-model="shippingMethod"
               />
               <div class="shipping-description">
                 <div class="shipping-name">
@@ -28,14 +31,17 @@
             </div>
             <div
               class="row"
-              :class="{ selected: form.shippingMethod === 'shipping-dhl' }"
+              :class="{
+                selected: form.shippingFee === 500,
+              }"
             >
               <label for="shipping-dhl"></label>
               <input
+                type="radio"
                 id="shipping-dhl"
                 value="shipping-dhl"
-                type="radio"
-                v-model="form.shippingMethod"
+                name="shippingMethod"
+                v-model="shippingMethod"
               />
               <div class="shipping-description">
                 <div class="shipping-name">
@@ -57,7 +63,7 @@
         </div>
       </div>
       <!-- Cart component -->
-      <Cart />
+      <Cart :form="form" />
     </div>
   </div>
 </template>
@@ -74,27 +80,28 @@ export default {
     const localStorageForm = JSON.parse(localStorage.getItem("form"));
     if (localStorageForm) {
       this.form = {
-        ...this.form,
         ...localStorageForm,
       };
     } else {
-      // catch for NavigationDuplicated error
-      // this.$router.push("/").catch(() => {});
       this.$router.push("/");
+    }
+    if (!this.form.shippingFee) {
+      this.shippingMethod = "shipping-standard";
+    } else {
+      this.shippingMethod = "shipping-dhl";
     }
   },
   data() {
     return {
       currentStep: 2,
-      form: {
-        shippingMethod: "",
-      },
+      form: {},
+      shippingMethod: "",
     };
   },
   methods: {
     saveForm() {
       // form check
-      if (!this.form.shippingMethod) {
+      if (!this.shippingMethod) {
         return alert("尚未選擇運送方式！");
       }
       // 取代當前 localStorage 中的 form
@@ -103,7 +110,26 @@ export default {
       this.$router.push("/checkout");
     },
     lastStep() {
+      localStorage.setItem("form", JSON.stringify(this.form));
       this.$router.push("/");
+    },
+  },
+  computed: {
+    shippingFee() {
+      if (this.form.shippingMethod === "shipping-dhl") {
+        return 500;
+      } else {
+        return 0;
+      }
+    },
+  },
+  watch: {
+    shippingMethod(newVal) {
+      if (newVal === "shipping-dhl") {
+        this.form.shippingFee = 500;
+      } else {
+        this.form.shippingFee = 0;
+      }
     },
   },
 };
@@ -160,6 +186,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.input label:hover {
+  cursor: pointer;
 }
 
 .input label::before {

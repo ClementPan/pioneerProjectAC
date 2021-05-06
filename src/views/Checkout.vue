@@ -8,11 +8,11 @@
           <h1 class="title">付款資訊</h1>
           <div class="row">
             <div class="input">
-              <label for="input-cardHolderName">持卡人姓名</label>
+              <label for="input-ccname">持卡人姓名</label>
               <input
-                v-model="form.cardHolderName"
+                v-model="form.ccname"
                 required
-                id="input-cardHolderName"
+                id="input-ccname"
                 placeholder="John Doe"
                 type="text"
               />
@@ -28,29 +28,30 @@
                 placeholder="1111 2222 3333 4444"
                 type="tel"
                 maxlength="19"
-                pattern="[0-9]{13,19}"
               />
             </div>
           </div>
           <div class="row">
             <div class="input">
-              <label for="input-expileDate">有效期限</label>
+              <label for="input-expdate">有效期限</label>
               <input
-                v-model="form.expileDate"
+                v-model="form.expdate"
                 required
-                id="input-expileDate"
+                id="input-expdate"
                 placeholder="MM/YY"
-                type="date"
+                type="text"
+                maxlength="5"
               />
             </div>
             <div class="input">
-              <label for="input-cvc">CVC / CCV</label>
+              <label for="input-cvv">CVC / CCV</label>
               <input
-                v-model="form.cvc"
+                v-model="form.cvv"
                 required
-                id="input-cvc"
+                id="input-cvv"
                 placeholder="123"
                 type="text"
+                maxlength="3"
               />
             </div>
           </div>
@@ -59,33 +60,39 @@
           <button class="btn btn-last" @click.stop.prevent="lastStep">
             <span><img src="../assets/btnLast.svg" alt="" /></span>上一步
           </button>
-          <button class="btn btn-next" @click.stop.prevent="saveForm">
+          <button class="btn btn-next" @click.stop.prevent="checkout">
             確認下單 <span><img src="../assets/btnNext.svg" alt="" /></span>
           </button>
         </div>
       </div>
 
-      <Cart />
+      <Modal
+        id="modal"
+        :class="{ show: isShow }"
+        :form="form"
+        @closeModal="closeModal"
+      ></Modal>
+
+      <div class="modal-backdrop" :class="{ show: isShow }"></div>
+
+      <Cart :form="form" />
     </div>
   </div>
 </template>
 
 <script>
 import Cart from "../components/Cart";
+import Modal from "../components/Modal";
 import ProgressBar from "../components/ProgressBar";
 
 export default {
   name: "Checkout",
-  components: { Cart, ProgressBar },
+  components: { Cart, ProgressBar, Modal },
   data() {
     return {
       currentStep: 3,
-      form: {
-        cardHolderName: "",
-        cardNumber: "",
-        expileDate: "",
-        cvc: "",
-      },
+      form: {},
+      isShow: false,
     };
   },
   created() {
@@ -93,7 +100,6 @@ export default {
     const localStorageForm = JSON.parse(localStorage.getItem("form"));
     if (localStorageForm) {
       this.form = {
-        ...this.form,
         ...localStorageForm,
       };
     } else {
@@ -101,21 +107,24 @@ export default {
     }
   },
   methods: {
-    nextStep() {
-      // 把 localStorage 的資料拿出來，加上現在新的資料，送出
+    checkout() {
+      // form check
+      if (
+        !this.form.ccname ||
+        !this.form.cardNumber ||
+        !this.form.expdate ||
+        !this.form.cvv
+      ) {
+        return alert("尚未填妥付款資訊！");
+      }
+      this.isShow = true;
     },
     lastStep() {
+      localStorage.setItem("form", JSON.stringify(this.form));
       this.$router.push("/shipping");
     },
-  },
-  filters: {
-    cardNumberFilter(num) {
-      num = num.split("");
-      if (num.length > 4) {
-        num.push(" ");
-      }
-      // return num.join("");
-      return "**********";
+    closeModal() {
+      this.isShow = false;
     },
   },
 };
@@ -125,5 +134,29 @@ export default {
 .row:nth-child(2) .input,
 .row:nth-child(3) .input {
   width: 350px;
+}
+
+#modal {
+  display: none;
+}
+
+#modal.show {
+  display: block;
+}
+
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.7;
+  z-index: 998;
+}
+
+.modal-backdrop.show {
+  display: block;
 }
 </style>

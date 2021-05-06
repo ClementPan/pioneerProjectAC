@@ -2,7 +2,7 @@
   <div id="cart">
     <p class="cart-title">購物籃</p>
     <div class="itemContainer">
-      <div class="item" v-for="item in products" :key="item.id">
+      <div class="item" v-for="item in form.products" :key="item.id">
         <div class="photo">
           <img :src="item.photo" alt="" />
         </div>
@@ -23,11 +23,11 @@
     </div>
     <div class="shippingFee">
       <p>運費</p>
-      <p>免費</p>
+      <p>{{ form.shippingFee | shippingFeeFilter }}</p>
     </div>
     <div class="totalFee">
       <p>小計</p>
-      <p>{{ totalCount | priceFormat }}</p>
+      <p>{{ form.totalPrice | priceFormat }}</p>
     </div>
   </div>
 </template>
@@ -36,32 +36,10 @@
 export default {
   name: "Cart",
   props: {
-    shippingFee: {
-      type: Number,
-      default: 0,
+    form: {
+      type: Object,
+      required: true,
     },
-  },
-  data() {
-    return {
-      products: [
-        {
-          id: 1,
-          photo:
-            "https://clementpan.github.io/toUploadImage/cart-item-photo1.svg",
-          name: "破壞補丁修身牛仔褲",
-          count: 1,
-          price: 3999,
-        },
-        {
-          id: 2,
-          photo:
-            "https://clementpan.github.io/toUploadImage/cart-item-photo2.svg",
-          name: "刷色直筒牛仔褲",
-          count: 1,
-          price: 1299,
-        },
-      ],
-    };
   },
   methods: {
     plusCount(item) {
@@ -72,21 +50,33 @@ export default {
       item.count--;
     },
   },
+  watch: {
+    form: {
+      deep: true,
+      handler: function () {
+        let prices = this.form.products.map((each) => each.price * each.count);
+        this.form.totalPrice =
+          prices.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          ) + this.form.shippingFee;
+      },
+    },
+  },
   computed: {
-    totalCount() {
-      let prices = this.products.map((each) => each.price * each.count);
-      return (
-        prices.reduce(
-          (accumulator, currentValue) => accumulator + currentValue,
-          0
-        ) + this.shippingFee
-      );
+    shippingFee() {
+      if (!this.form.shippingMethod) return 0;
+      if (this.form.shippingMethod === "shipping-standard") {
+        return 0;
+      } else {
+        return 500;
+      }
     },
   },
   filters: {
     priceFormat(price) {
       // to be optimized
-      price = price.toString().split("");
+      price = (price + "").split("");
       if (price.length > 3) {
         price = price.reverse();
         price.splice(3, 0, ",");
@@ -94,6 +84,9 @@ export default {
       } else {
         return "$" + price.join("");
       }
+    },
+    shippingFeeFilter(num) {
+      return num === 0 ? "免費" : "$500";
     },
   },
 };
