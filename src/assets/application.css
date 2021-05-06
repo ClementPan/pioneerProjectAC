@@ -25,7 +25,7 @@ html, body {
 body {
   display: grid;
   place-items: center;
-  background-color: #a7a7a7;
+  /* background-color: #a7a7a7; */
 }
 
 .page-title {
@@ -41,6 +41,12 @@ body {
 
 .panel {
   width: 540px;
+}
+
+.form {
+  /* 300px */
+  height: 300px;
+  overflow: hidden;
 }
 
 
@@ -135,23 +141,43 @@ body {
 }
 
 /* button row */
-.row:last-child {
+.btn-panel {
   height: 72px;
-  position: relative;
+  width: 100%;
   margin-top: 48px;
+  position: relative;
+  width: 100%;
   border-top: 1px solid var(--borderLight);
 }
 
 .btn {
   position: absolute;
-  bottom: 0;
-  right: 0;
   width: 174px;
   height: 46px;
   border: none;
+  border-radius: 8px;
+}
+
+.btn-last {
+  bottom: 0;
+  left: 0;
+  background-color:white;
+  color: #000;
+}
+
+.btn-next {
+  bottom: 0;
+  right: 0;
   background-color: var(--btn);
   color: #fff;
-  border-radius: 8px;
+}
+
+.btn-next span {
+  margin-left: 13.5px;
+}
+
+.btn-last span {
+  margin-right: 13.5px;
 }
 
 .btn:hover {

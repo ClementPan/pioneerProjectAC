@@ -1,17 +1,34 @@
 <template>
   <div id="progressBar">
     <div class="step one done">
-      <i><img src="./../assets/stepNum/stepOneDone.svg" alt="" /></i>
+      <i v-if="currentStep === 1">
+        <img src="./../assets/stepNum/stepOneDone.svg" alt="" />
+      </i>
+      <i v-else>
+        <img src="./../assets/stepNum/stepChecked.svg" alt="" />
+      </i>
       <p>寄送地址</p>
     </div>
-    <div class="connectLine" :class="{ done: currentStep === 1 || 2 }"></div>
-    <div class="step two">
-      <i><img src="./../assets/stepNum/stepTwoUndone.svg" alt="" /></i>
+    <div class="connectLine done"></div>
+    <div
+      class="step two"
+      :class="{ done: currentStep === 2 || currentStep === 3 }"
+    >
+      <i v-if="currentStep === 1"
+        ><img src="./../assets/stepNum/stepTwoUndone.svg" alt=""
+      /></i>
+      <i v-else-if="currentStep === 3"
+        ><img src="./../assets/stepNum/stepChecked.svg" alt=""
+      /></i>
+      <i v-else><img src="./../assets/stepNum/stepTwoCurrent.svg" alt="" /></i>
       <p>運送方式</p>
     </div>
     <div class="connectLine" :class="{ done: currentStep === 3 }"></div>
-    <div class="step three">
-      <i><img src="./../assets/stepNum/stepThreeUndone.svg" alt="" /></i>
+    <div class="step three" :class="{ done: currentStep === 3 }">
+      <i v-if="currentStep === 3"
+        ><img src="./../assets/stepNum/stepThreeCurrent.svg" alt=""
+      /></i>
+      <i v-else><img src="./../assets/stepNum/stepThreeUndone.svg" alt="" /></i>
       <p>付款資訊</p>
     </div>
   </div>
@@ -25,6 +42,11 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data() {
+    return {
+      form: {},
+    };
   },
 };
 </script>
