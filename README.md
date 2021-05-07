@@ -1,6 +1,5 @@
 # pioneer
 
-```
 ## Project setup
 ```
 npm install
