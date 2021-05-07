@@ -121,7 +121,7 @@ body {
   background-image: url("../assets/dropdownBtn.svg");
   background-repeat: no-repeat;
   background-size: 12px 8px;
-  pointer-events:none;
+  pointer-events: none;
   /* make it not clickable */
 }
 

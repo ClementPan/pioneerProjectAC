@@ -4,6 +4,7 @@
     <div class="main-content">
       <div class="panel">
         <ProgressBar :currentStep="currentStep"></ProgressBar>
+        <!--  -->
         <div class="form">
           <h1 class="title">付款資訊</h1>
           <div class="row">
@@ -56,6 +57,7 @@
             </div>
           </div>
         </div>
+        <!--  -->
         <div class="btn-panel">
           <button class="btn btn-last" @click.stop.prevent="lastStep">
             <span><img src="../assets/btnLast.svg" alt="" /></span>上一步
@@ -118,6 +120,7 @@ export default {
         return alert("尚未填妥付款資訊！");
       }
       this.isShow = true;
+      console.log({ ...this.form });
     },
     lastStep() {
       localStorage.setItem("form", JSON.stringify(this.form));

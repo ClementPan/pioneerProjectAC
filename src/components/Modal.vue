@@ -34,7 +34,7 @@ export default {
 
 <style scoped>
 #modal {
-  width: 300px;
+  width: 320px;
   border-radius: 5px;
   height: auto;
   background-color: #fff;
@@ -43,14 +43,14 @@ export default {
   left: 50%;
   transform: translate(-50%, 0%);
   z-index: 999;
-  border: 1px solid #000;
+  border: 1px solid #aaa;
 }
 
 .header {
   padding: 0 10px;
   height: 40px;
   line-height: 30px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #aaa;
   position: relative;
 }
 
@@ -66,13 +66,17 @@ export default {
   justify-content: center;
 }
 
+i:hover {
+  cursor: pointer;
+}
+
 .header i img {
   width: 20px;
   height: 20px;
 }
 
 .container {
-  padding: 10px;
+  padding: 20px;
 }
 
 p {

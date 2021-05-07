@@ -4,6 +4,7 @@
     <div class="main-content">
       <div class="panel">
         <ProgressBar :currentStep="currentStep"></ProgressBar>
+        <!--  -->
         <div class="form">
           <h1 class="title">運送方式</h1>
           <div class="input radio">
@@ -53,6 +54,7 @@
             </div>
           </div>
         </div>
+        <!--  -->
         <div class="btn-panel">
           <button class="btn btn-last" @click.stop.prevent="lastStep">
             <span><img src="../assets/btnLast.svg" alt="" /></span>上一步
@@ -87,8 +89,6 @@ export default {
     }
     if (!this.form.shippingFee) {
       this.shippingMethod = "shipping-standard";
-    } else {
-      this.shippingMethod = "shipping-dhl";
     }
   },
   data() {

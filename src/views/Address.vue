@@ -4,6 +4,7 @@
     <div class="main-content">
       <div class="panel">
         <ProgressBar :currentStep="currentStep"></ProgressBar>
+        <!--  -->
         <div class="form">
           <h1 class="title">寄送地址</h1>
           <!-- mr/mrs & username -->
@@ -87,6 +88,7 @@
             </div>
           </div>
         </div>
+        <!--  -->
         <div class="btn-panel">
           <button
             class="btn btn-next"
