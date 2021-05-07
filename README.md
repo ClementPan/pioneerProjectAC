@@ -1,8 +1,5 @@
 # pioneer
 
-## Project Demo
-```
-https://clementpan.github.io/pioneerProjectAC/
 ```
 ## Project setup
 ```
